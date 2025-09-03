@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import TeamCard, { TeamCardProps } from "../team-card";
+import { useTheme } from "@/context/ThemeContext";
 
 const team: TeamCardProps[] = [
   { name: "Lawyer 1", position: "Position 1" },
@@ -16,6 +17,7 @@ const team: TeamCardProps[] = [
 ];
 
 const TeamPage = () => {
+  const { currentTheme } = useTheme();
   // refs for each row
   const row1Ref = useRef(null);
   const row2Ref = useRef(null);
@@ -38,8 +40,8 @@ const TeamPage = () => {
   };
 
   return (
-    <section className="w-full flex flex-col bg-white items-center py-16 px-24 text-black z-30">
-      <motion.h2 className="text-6xl md:text-7xl font-cormorant text-gray-900 leading-tight">
+    <section style={{backgroundColor: currentTheme.colors.background}} className="w-full flex flex-col  items-center py-16 px-24 text-black z-30">
+      <motion.h2 style={{color: currentTheme.colors.foreground}} className="text-6xl md:text-7xl font-cormorant leading-tight">
         Our Team
       </motion.h2>
 

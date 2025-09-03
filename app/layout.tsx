@@ -3,18 +3,19 @@ import { Cormorant_Garamond, Lato } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const lato = Lato({
   variable: "--font-lato",
   subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"]
-})
+  weight: ["100", "300", "400", "700", "900"],
+});
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"]
-})
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Law Firm Website",
@@ -28,12 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${lato.variable} ${cormorant.variable} antialiased`}
-      >
-        <Navbar />
-        {children}
-        {/* <Footer /> */}
+      <body className={`${lato.variable} ${cormorant.variable} antialiased`}>
+        <ThemeProvider>
+          <Navbar />
+          {children}
+          {/* <Footer /> */}
+        </ThemeProvider>
       </body>
     </html>
   );

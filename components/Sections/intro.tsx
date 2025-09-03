@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 const text = "Law Firm & Co.";
 
@@ -29,13 +30,16 @@ const letter: Variants = {
 };
 
 const IntroPage = () => {
+  const { currentTheme } = useTheme();
+  
   return (
-    <section className="w-full h-screen flex items-center justify-center bg-theme-blue absolute top-0 z-50">
+    <section style={{backgroundColor: currentTheme.colors.primary}} className="w-full h-screen flex items-center justify-center absolute top-0 z-50">
       <motion.h1
-        className="text-theme-yellow font-cormorant text-8xl flex"
+        className="font-cormorant text-8xl flex"
         variants={container}
         initial="hidden"
         animate="visible"
+        style={{color: currentTheme.colors.secondary}}
       >
         {text.split("").map((char, index) => (
           <motion.span key={index} variants={letter}>

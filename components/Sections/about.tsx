@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import AboutCard from "../about-card";
 import { Book, Globe, Handshake, Scale } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const aboutText = {
   hidden: { opacity: 0, y: 40 },
@@ -24,30 +25,11 @@ const floatingElements = {
 };
 
 export default function AboutPage() {
-  return (
-    <section className="relative w-full min-h-screen bg-gradient-to-br flex flex-col items-center justify-center px-8 py-20 overflow-hidden">
-      <div className="flex flex-row items-center justify-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2 }}
-            className="absolute top-20 left-20 w-72 h-72 bg-blue-100/30 rounded-full blur-3xl"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 0.5 }}
-            className="absolute bottom-20 right-20 w-96 h-96 bg-indigo-100/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 1 }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-100/20 rounded-full blur-3xl"
-          />
-        </div>
+  const { currentTheme } = useTheme();
 
+  return (
+    <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-8 py-20 overflow-hidden" style={{backgroundColor: currentTheme.colors.background}}>
+      <div className="flex flex-row items-center justify-center">
         <div className="relative z-10 max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           {/* Left Side - Enhanced Content */}
           <motion.div
@@ -59,7 +41,8 @@ export default function AboutPage() {
             <motion.h2
               custom={1}
               variants={aboutText}
-              className="text-6xl md:text-7xl font-cormorant text-gray-900 leading-tight"
+              className="text-6xl md:text-7xl font-cormorant leading-tight"
+              style={{color: currentTheme.colors.foreground}}
             >
               About Our Firm
             </motion.h2>
@@ -67,7 +50,8 @@ export default function AboutPage() {
             <motion.p
               custom={2}
               variants={aboutText}
-              className="text-xl text-gray-600 leading-relaxed font-light"
+              className="text-xl leading-relaxed font-light"
+              style={{color: currentTheme.colors.foreground}}
             >
               For over two decades, Law Firm & Co. has been providing trusted
               legal counsel to individuals and businesses worldwide. Our
@@ -78,7 +62,8 @@ export default function AboutPage() {
             <motion.p
               custom={3}
               variants={aboutText}
-              className="text-lg text-gray-600 leading-relaxed"
+              className="text-lg leading-relaxed"
+              style={{color: currentTheme.colors.foreground}}
             >
               We combine traditional values with modern solutions to navigate
               today's complex legal landscape, always putting our clients first.
@@ -89,12 +74,14 @@ export default function AboutPage() {
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative px-8 py-4 bg-theme-blue text-white rounded-lg font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                className="group relative px-8 py-4 bg-theme-blue rounded-lg font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                style={{color: currentTheme.colors.text}}
               >
                 <span className="relative z-10">Learn More About Us</span>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r bg-theme-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   layoutId="button-bg"
+                  style={{backgroundColor: currentTheme.colors.primary}}
                 />
               </motion.button>
             </motion.div>
@@ -134,7 +121,8 @@ export default function AboutPage() {
                 >
                   <div className="flex-1 bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-lg hover:bg-white/15 transition-all duration-300">
                     <motion.p
-                      className="text-4xl font-bold text-white mb-1"
+                    style={{color: currentTheme.colors.text}}
+                      className="text-4xl font-bold mb-1"
                       initial={{ scale: 0.8 }}
                       whileInView={{ scale: 1 }}
                       transition={{
@@ -145,14 +133,14 @@ export default function AboutPage() {
                     >
                       25+
                     </motion.p>
-                    <p className="text-white/90 text-sm uppercase tracking-wider font-medium">
+                    <p className=" text-sm uppercase tracking-wider font-medium" style={{color: currentTheme.colors.text}}>
                       Years of Service
                     </p>
                   </div>
 
                   <div className="flex-1 bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-lg hover:bg-white/15 transition-all duration-300">
                     <motion.p
-                      className="text-4xl font-bold text-white mb-1"
+                      className="text-4xl font-bold mb-1"
                       initial={{ scale: 0.8 }}
                       whileInView={{ scale: 1 }}
                       transition={{
@@ -160,10 +148,11 @@ export default function AboutPage() {
                         type: "spring",
                         stiffness: 200,
                       }}
+                      style={{color: currentTheme.colors.text}}
                     >
                       500+
                     </motion.p>
-                    <p className="text-white/90 text-sm uppercase tracking-wider font-medium">
+                    <p style={{color: currentTheme.colors.text}} className="text-sm uppercase tracking-wider font-medium">
                       Cases Won
                     </p>
                   </div>
@@ -174,18 +163,19 @@ export default function AboutPage() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.6 }}
-                  className="bg-theme-yellow/50 backdrop-blur-xl border border-white/20 p-4 rounded-2xl shadow-lg"
+                  className=" backdrop-blur-xl border border-white/20 p-4 rounded-2xl shadow-lg"
+                  style={{backgroundColor: currentTheme.colors.secondary}}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-white font-semibold">
+                      <p style={{color: currentTheme.colors.text}} className="font-semibold">
                         Client Satisfaction
                       </p>
-                      <p className="text-white/80 text-sm">
+                      <p style={{color: currentTheme.colors.text}} className="text-sm">
                         Consistently rated excellent
                       </p>
                     </div>
-                    <div className="text-3xl font-bold text-white">98%</div>
+                    <div style={{color: currentTheme.colors.text}} className="text-3xl font-bold">98%</div>
                   </div>
                 </motion.div>
               </div>

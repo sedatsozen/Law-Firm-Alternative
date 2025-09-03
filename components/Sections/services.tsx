@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { Scale, ChevronLeft, ChevronRight } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const services = [
   {
@@ -99,6 +100,8 @@ const services = [
 ];
 
 export default function ServicesPage() {
+  const { currentTheme } = useTheme();
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const itemsToShow = 3; // Show 2 cards at a time
@@ -142,7 +145,7 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="bg-white">
+    <div style={{backgroundColor: currentTheme.colors.background}}>
       <section className="relative py-20 overflow-hidden">
         {/* Header */}
         <div className="w-full flex items-center justify-center mb-16">
@@ -150,7 +153,8 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-6xl md:text-7xl font-cormorant text-theme-blue leading-tight"
+            className="text-6xl md:text-7xl font-cormorant leading-tight"
+            style={{color: currentTheme.colors.foreground}}
           >
             Our Services
           </motion.h1>
@@ -220,13 +224,13 @@ export default function ServicesPage() {
                     <div className="relative z-10 p-8 h-full flex flex-col">
                       {/* Header */}
                       <div className="mb-6">
-                        <motion.div className="w-16 h-16 rounded-xl bg-theme-yellow mb-4 flex items-center justify-center ">
-                          <Scale className="w-8 h-8 text-theme-white" />
+                        <motion.div style={{backgroundColor: currentTheme.colors.secondary}} className="w-16 h-16 rounded-xl mb-4 flex items-center justify-center ">
+                          <Scale color={currentTheme.colors.text} className="w-8 h-8" />
                         </motion.div>
-                        <h3 className="text-3xl font-cormorant text-white mb-3">
+                        <h3 style={{color: currentTheme.colors.text}} className="text-3xl font-cormorant mb-3">
                           {service.title}
                         </h3>
-                        <p className="text-white leading-relaxed">
+                        <p style={{color: currentTheme.colors.text}} className="leading-relaxed">
                           {service.description}
                         </p>
                       </div>
@@ -242,7 +246,7 @@ export default function ServicesPage() {
                             className="flex items-center gap-3"
                           >
                             <div className="w-2 h-2 rounded-full bg-theme-yellow" />
-                            <span className="text-white font-medium">
+                            <span style={{color: currentTheme.colors.text}} className="font-medium">
                               {feature}
                             </span>
                           </motion.div>
@@ -253,9 +257,10 @@ export default function ServicesPage() {
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full py-4 bg-theme-white text-theme-blue rounded-xl font-semibold  transition-all duration-300 relative overflow-hidden group"
+                        className="w-full py-4 text-theme-blue rounded-xl font-semibold  transition-all duration-300 relative overflow-hidden group"
+                        style={{backgroundColor: currentTheme.colors.backgroundMuted}}
                       >
-                        <span className="relative z-10">Learn More</span>
+                        <span style={{color: currentTheme.colors.foreground}} className="relative z-10">Learn More</span>
                         <motion.div
                           className="absolute inset-0 bg-white/20"
                           initial={{ x: "-100%" }}

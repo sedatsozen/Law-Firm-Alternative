@@ -13,15 +13,26 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
+    // Disable scroll while intro is active
+    if (showIntro) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
     const timer = setTimeout(() => {
       setShowIntro(false);
     }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = "auto"; // reset when component unmounts
+    };
+  }, [showIntro]);
 
   return (
     <div className="flex flex-col">
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {showIntro && (
           <motion.div
             key="intro"
@@ -33,7 +44,7 @@ export default function Home() {
             <IntroPage />
           </motion.div>
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
 
       <LandingPage />
       <AboutPage />
